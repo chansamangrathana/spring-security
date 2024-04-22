@@ -1,19 +1,23 @@
 package co.cstad.pringsecurity.restcontrollers;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import co.cstad.pringsecurity.model.dto.UserRequest;
+import co.cstad.pringsecurity.service.UserService;
+import co.cstad.pringsecurity.utils.BaseResponse;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
+@RequiredArgsConstructor
 public class AuthRestController {
-    @GetMapping("/login")
-    public String login() {
-        return "login successful";
-    }
+    private final UserService userService;
 
-    @GetMapping("/sign-up")
-    public String signUp() {
-        return "signUp successful";
+
+    @PostMapping("/register")
+    public BaseResponse<Object> createNewUser(@RequestBody UserRequest userRequest) {
+        return BaseResponse.createSuccess()
+                .setPayload(userService.createUser(userRequest));
     }
 }
