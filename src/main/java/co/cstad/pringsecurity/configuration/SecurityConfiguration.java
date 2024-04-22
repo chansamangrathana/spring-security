@@ -34,13 +34,13 @@ public class SecurityConfiguration {
                 .password(passwordEncoder().encode("130613"))
                 .roles("ADMIN")
                 .build();
-        UserDetails user = User.builder()
+        UserDetails user3 = User.builder()
                 .username("jin")
                 .password(passwordEncoder().encode("130613"))
                 .roles("AUTHOR")
                 .build();
 
-        return new InMemoryUserDetailsManager(user1, user2);
+        return new InMemoryUserDetailsManager(user1, user2,user3);
     }
 
     @Bean
@@ -73,7 +73,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "api/v1/articles/**")
 //                                    .hasRole("USER")
                                 .hasAnyRole("USER", "AUTHOR", "ADMIN")
-                                .requestMatchers("api/v1/articles/**")
+                                .requestMatchers(HttpMethod.POST,"api/v1/articles/**")
                                 .hasRole("AUTHOR")
                                 .anyRequest()
                                 .authenticated()

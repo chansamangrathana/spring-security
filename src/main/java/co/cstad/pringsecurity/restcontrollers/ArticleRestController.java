@@ -17,8 +17,8 @@ public class ArticleRestController {
         return "Read article"+id;
     }
     @PostMapping("/write")
-    public String createArticle(@PathVariable int id){
-        return "Create article"+id;
+    public String createArticle(){
+        return "Create article";
     }
     @DeleteMapping("/delete/{id}")
     public String deleteArticle(@PathVariable int id){
